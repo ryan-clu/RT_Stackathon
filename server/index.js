@@ -1,6 +1,8 @@
 const express = require("express");
 require("dotenv").config(); // extension that loads .env file contents into process.env.
 const colors = require('colors'); // requires colors package/library we installed
+const cors = require('cors');
+
 const { graphqlHTTP } = require("express-graphql");
 const schema = require("./schema/schema");
 const connectDB = require('./config/db');
@@ -9,6 +11,9 @@ const app = express();
 
 // Connect to database
 connectDB();
+
+// CORS middleware with CORS func
+app.use(cors());
 
 // Our single Express route
 app.use("/graphql", graphqlHTTP({
