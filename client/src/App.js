@@ -1,6 +1,9 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Clients from "./components/Clients";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -30,10 +33,15 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Header />
-        <div className="container">
-          <Clients />
-        </div>
+        <Router>
+          <Header />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </Router>
       </ApolloProvider>
     </>
   );
@@ -47,5 +55,7 @@ NOTES
 - ApolloClient - is bolted on top of our React front end. ApolloClient is what communicates with our GraphQL API.
 - ApolloProvider - wrapper around our app so that all components and routes of our app will have access to GraphQL.
 - InMemoryCache - don't have to refresh page to see updates.
+
+- Routes replaces Switch in latest v of react-router-dom.
 
 */
