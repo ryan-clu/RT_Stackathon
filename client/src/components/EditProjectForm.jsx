@@ -8,8 +8,8 @@ export default function EditProjectForm({ project }) {
   const [description, setDescription] = useState(project.description);
   const [status, setStatus] = useState('');
 
-  const [updateProject] = useMutation(UPDATE_PROJECT, {
-    variables: { id: project.id, name, description, status },
+  const [UpdateProject] = useMutation(UPDATE_PROJECT, {
+    variables: { id: project.id, name: name, description: description, status: status },
     refetchQueries: [{ query: GET_SINGLE_PROJECT, variables: { id: project.id } }],
   });
 
@@ -20,7 +20,7 @@ export default function EditProjectForm({ project }) {
       return alert('Please fill out all fields');
     }
 
-    updateProject(name, description, status);
+    UpdateProject(name, description, status);
   };
 
   return (
