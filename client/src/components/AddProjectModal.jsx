@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../queries/projectQueries";
 import { GET_CLIENTS } from "../queries/clientQueries";
 import Spinner from "./Spinner";
+import { ADD_PROJECT } from "../mutations/projectMutations";
 
 export default function AddProjectModal() {
   const [name, setName] = useState("");
@@ -13,31 +14,32 @@ export default function AddProjectModal() {
 
   // Get Clients for select form.
   const { loading, error, data } = useQuery(GET_CLIENTS);
-
-  //   const [addClient] = useMutation(ADD_CLIENT, {
-  //     variables: { name: name, email: email, phone: phone },
-  //     update(cache, { data: { addClient } }) {
-  //       const { clients } = cache.readQuery({ query: GET_CLIENTS });
-  //       cache.writeQuery({
-  //         query: GET_CLIENTS,
-  //         data: {
-  //           //clients is an array. use concat on array containing the addClient obj (data) to add onto clients array.
-  //           clients: clients.concat([addClient]),
-  //           //clients: [...clients, addClient],
-  //         },
-  //       });
-  //     },
-  //   });
+    // AddProject or addProject? look into Apollo Client docs more...
+    const [AddProject] = useMutation(ADD_PROJECT, {
+      variables: { name: name, description: description, status: status, clientId: clientId },
+      // can do a refetch... but update cache local state is better... dont have to make another request...
+      update(cache, { data: { addProject } }) {
+        const { projects } = cache.readQuery({ query: GET_PROJECTS });
+        cache.writeQuery({
+          query: GET_PROJECTS,
+          data: {
+            //projects is an array. use concat on array containing the addProject obj (data) to add onto projects array.
+            projects: projects.concat([addProject]),
+            //projects: [...projects, addProject],
+          },
+        });
+      },
+    });
 
   const onSubmit = (e) => {
     // prevent default
     e.preventDefault();
-    // check to make sure form is filled with values
+    // validation - to check to make sure form is filled with values.
     if (name === "" || description === "" || status === "") {
       return alert("Please fill in all fields to continue.");
     }
     // run graphQL mutation
-    // addClient(name, email, phone);
+    AddProject(name, description, status, clientId);
     // reset state values
     setName("");
     setDescription("");
