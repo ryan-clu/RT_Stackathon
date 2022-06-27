@@ -44,7 +44,7 @@ export default function AddClientModal() {
       {/* <!-- Button trigger modal --> */}
       <button
         type="button"
-        className="btn btn-secondary"
+        className="btn btn-dark"
         data-bs-toggle="modal"
         data-bs-target="#addClientModal"
       >
@@ -109,7 +109,7 @@ export default function AddClientModal() {
                 <div className="modal-footer">
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn btn-info"
                     data-bs-dismiss="modal"
                   >
                     Close
@@ -117,7 +117,7 @@ export default function AddClientModal() {
 
                   <button
                     type="submit"
-                    className="btn btn-secondary"
+                    className="btn btn-info"
                     data-bs-dismiss="modal"
                   >
                     Submit
