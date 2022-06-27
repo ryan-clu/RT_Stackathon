@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GET_SINGLE_PROJECT } from "../queries/projectQueries";
 import ClientInfo from "../components/ClientInfo";
 import DeleteProjectButton from "../components/DeleteProjectButton";
+import EditProjectForm from "../components/EditProjectForm";
 
 export default function Project() {
   const { id } = useParams();
@@ -35,10 +36,8 @@ export default function Project() {
 
           <ClientInfo client={data.project.client} />
 
-          <div className="d-flex gap-3 mb-4">
-            {/* <EditProjectForm project={data.project} /> */}
-            <DeleteProjectButton projectId={data.project.id} />
-          </div>
+          <EditProjectForm project={data.project} />
+          <DeleteProjectButton projectId={data.project.id} />
         </div>
       )}
     </>

@@ -64,4 +64,7 @@ const UPDATE_PROJECT = gql`
   }
 `;
 
+// NOTE: Recall ProjectStatusUpdate comes from the back end, from your schema setup for GraphQL... status is an ENUM graphQL type with a name that you set to ProjectStatusUpdate...
+
+
 export { ADD_PROJECT, DELETE_PROJECT, UPDATE_PROJECT };
